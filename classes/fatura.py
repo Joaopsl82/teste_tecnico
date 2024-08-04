@@ -14,13 +14,14 @@ class RPA:
     driver = webdriver.Chrome(service=service, options=opts)
     driver.maximize_window()
     driver.get('https://rpachallengeocr.azurewebsites.net/')
+    sleep(3)
 
     def __init__(self):
             if not os.path.exists('Faturas'):
                 os.makedirs('Faturas')
 
     def acessando_dados(self):
-        data_atual = datetime.now()
+        data_atual = datetime.now()   
         soup = BeautifulSoup(self.driver.page_source, 'html.parser')
         table = soup.find('table', id='tableSandbox')
         tbody = table.find('tbody')
@@ -28,10 +29,10 @@ class RPA:
         validar_hrefs = []
         for linha in linhas:
             colunas = linha.find_all('td')
-            date_str = colunas[2].get_text(strip=True)
+            data_str = colunas[2].get_text(strip=True)
             href = colunas[3].find('a').get('href')
             try:
-                linha_data = datetime.strptime(date_str, '%d-%m-%Y')            
+                linha_data = datetime.strptime(data_str, '%d-%m-%Y')            
                 if linha_data <= data_atual:
                     validar_hrefs.append(href)
             except ValueError:
@@ -60,10 +61,10 @@ class RPA:
             
     def obter_dados_proxima_pagina(self):
         while True:
+            sleep(2)
             if self.acessando_dados() is True:
                 botao_proximo = self.driver.find_element(By.ID, 'tableSandbox_next')
                 if "disabled" in botao_proximo.get_attribute('class'):
                     break
                 botao_proximo.click()
-                sleep(2)
         return True
