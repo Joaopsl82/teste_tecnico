@@ -11,10 +11,27 @@ class ImageToTexto:
         return texto
     
     def extrair_faturas_datas(self, texto):
-        fatura = re.compile(r'Invoice #(\d+)')
-        data = re.compile(r'\b\d{4}-\d{2}-\d{2}\b')
-        faturas = fatura.findall(texto)
-        datas = data.findall(texto)
+        fatura_localizar = [
+            re.compile(r'Invoice #(\d+)'),
+            re.compile(r'INVOICE\s*#\s*(\d+)')
+        ]
+        
+        data_localizar = [
+            re.compile(r'\b\d{4}-\d{2}-\d{2}\b'),
+            re.compile(r'Date:\s*(\w+ \d{1,2}, \d{4})')
+        ]
+        
+        faturas = []
+        for fatura in fatura_localizar:
+            faturas = fatura.findall(texto)
+            if faturas:
+                break
+        
+        datas = []
+        for data in data_localizar:
+            datas = data.findall(texto)
+            if datas:
+                break
         return faturas, datas
     
     def arquivos(self):
