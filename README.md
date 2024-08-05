@@ -23,4 +23,6 @@ Caso o script vá ser rodado em um ambiente Windows precisamos baixar um arquivo
 irá começar, apenas devemos nos atentar em baixar no caminho "C:\Program Files\Tesseract-OCR\tesseract.exe".<br>
 Depois de instalado, iremos rodar o comando pip install pytesseract e assim o script estará funcionando.
 
-<br><br>Esses são os passos para o funcionamento 100% do código, muito obrigado pela atenção :)
+<br><br>Esses são os passos para o funcionamento 100% do código, muito obrigado pela atenção :) <br><br>
+
+<h2>Para a execução do código utilizar o arquivo main.py</h2>
